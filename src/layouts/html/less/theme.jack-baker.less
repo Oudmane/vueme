@@ -1,0 +1,62 @@
+/*
+
+Name: Jack Baker
+Background: White
+Color: Red
+Type: Flat
+
+Style: white-black
+Name: White Black
+Background: White
+Color: Black
+Type: Flat
+
+Style: white-brown
+Name: White Brown
+Background: White
+Color: Brown
+Type: Flat
+
+Style: red-black
+Name: Red Black
+Background: Red
+Color: Black
+Type: Flat
+
+Style: dark-turquoise
+Name: Dark Turquoise
+Background: Dark
+Color: Turquoise
+Type: Flat
+
+Style: black-red
+Name: Black Red
+Background: Black
+Color: Red
+Type: Flat
+
+*/
+
+
+// UIkit Core
+@import "~uikit/src/less/uikit.less";
+//
+//// UIkit Theme
+@import "~uikit-themes/master/_import.less";
+@import "~uikit-themes/master-jack-baker/_import.less";
+@import (optional) "~uikit-themes/master-jack-baker/styles/@{internal-style}.less";
+
+// Theme
+@import "theme.less";
+
+@internal-style: "white-black";
+
+//
+// Variables
+//
+
+@section-title-color:                           @global-color;
+@section-title-text-transform:                  uppercase;
+@section-title-letter-spacing:                  3px;
+
+@internal-section-title-mode:                   dash;
