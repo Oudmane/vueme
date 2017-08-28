@@ -44,7 +44,8 @@ class API {
     static get(url, data = {}) {
         return this.request({
             method: 'GET',
-            url
+            url,
+            data
         })
     }
     static post(url, data = {}) {
