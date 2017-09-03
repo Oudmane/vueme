@@ -57,6 +57,12 @@ class Template {
                             })
                         break
                     default:
+
+                        ['template', 'html'].forEach(key => {
+                            if(body[key])
+                                delete body[key]
+                        })
+
                         resolve({
                             status: 200,
                             headers: {
