@@ -16,7 +16,7 @@ class Template {
     static render({body, status = 200, headers = {}}, application) {
         return new Promise((resolve, reject) => {
 
-            if([30, 302].includes(status))
+            if([301, 302].includes(status))
                 if(application.socket)
                     resolve({
                         body: {},
