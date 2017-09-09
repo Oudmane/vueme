@@ -1,6 +1,6 @@
 {
   "name": "vueme",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Template Engine using Vue.JS",
   "main": "lib/index.js",
   "scripts": {
