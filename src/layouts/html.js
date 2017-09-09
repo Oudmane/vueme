@@ -125,6 +125,10 @@ const renderer = createRenderer({
                                     this[key].push(datum)
                                 })
                             break
+                        case 'dir':
+                        case 'lang':
+                            this[key] = data[key]
+                            break
                     }
                 })
         },
