@@ -172,7 +172,7 @@ export default {
                         state
                     }),
                     i18n: new VueI18n({
-                        locale: 'en',
+                        locale: state.html.lang || 'en',
                         messages: i18n
                     }),
                     ...container
