@@ -127,7 +127,7 @@ const renderer = createRenderer({
                             break
                         case 'dir':
                         case 'lang':
-                            this[key] = data[key]
+                            this[key] = data
                             break
                     }
                 })
