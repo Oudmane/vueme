@@ -16,9 +16,7 @@ const renderer = createRenderer({
     }),
     components = {},
     modules = {},
-    i18n = {
-        en: {}
-    },
+    i18n = {},
     container = {
         render(h) {
             let {title, base, meta, link, style, script, noscript, lang, dir} = this.$data
