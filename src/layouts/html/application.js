@@ -147,7 +147,7 @@ export default {
         )
     },
     created() {
-        events.emit('created')
+        events.emit('created', this)
     },
     mounted() {
         jQuery.fn.URI = function () {
@@ -197,14 +197,14 @@ export default {
         API.connect().then(() => {
             this.busy = false
         })
-        events.emit('mounted')
+        events.emit('mounted', this)
         this.$nextTick(() => {
             this.render()
         })
     },
     methods: {
         render() {
-            events.emit('render')
+            events.emit('render', this)
         },
         position(position, _h) {
             let render = ''
