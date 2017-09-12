@@ -250,7 +250,7 @@ export default {
                 this.$store.replaceState(response)
                 this.$nextTick(() => {
 
-                    document.title = title(this)
+                    this.updateTitle()
 
                     if(push)
                         history.pushState(state, document.title, response.uri || state.url)
@@ -262,6 +262,9 @@ export default {
 
                 })
             })
+        },
+        updateTitle() {
+            document.title = title(this)
         },
         reload() {
             return this.request(history.state, false)
