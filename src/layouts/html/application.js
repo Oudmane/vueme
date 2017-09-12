@@ -1,9 +1,7 @@
 import API from './API'
 import jQuery from 'jquery'
 import FormSerializer from 'form-serializer'
-// import GA from '@oudyworks/webscripts-ga'
-// import FB from '@oudyworks/webscripts-fb'
-// import FBQ from '@oudyworks/webscripts-fbq'
+import EventEmitter from 'eventemitter3'
 
 const classes = () => {
         return {
@@ -64,7 +62,8 @@ const classes = () => {
             tail = beforeload.title.tail(instance, instance.$store.state)
 
         return title + (tail ? ` ${separator} ` + tail : '')
-    }
+    },
+    events = new EventEmitter()
 
 export default {
     name: 'application',
@@ -148,7 +147,7 @@ export default {
         )
     },
     created() {
-
+        events.emit('created')
     },
     mounted() {
         jQuery.fn.URI = function () {
@@ -198,17 +197,14 @@ export default {
         API.connect().then(() => {
             this.busy = false
         })
+        events.emit('mounted')
         this.$nextTick(() => {
             this.render()
         })
     },
     methods: {
         render() {
-            // GA('send', 'pageview')
-            // FB((FB) => {
-            //     FB.AppEvents.logPageView()
-            // })
-            // FBQ('track', 'PageView')
+            events.emit('render')
         },
         position(position, _h) {
             let render = ''
@@ -311,5 +307,17 @@ export default {
         task() {
             return this.$store.state.task || 'default'
         }
+    },
+    on() {
+        return events.on.apply(events, arguments)
+    },
+    once() {
+        return events.once.apply(events, arguments)
+    },
+    emit() {
+        return events.emit.apply(events, arguments)
+    },
+    remove() {
+        return events.removeListener.apply(events, arguments)
     }
 }
