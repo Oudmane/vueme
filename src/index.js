@@ -147,6 +147,21 @@ class Template {
             done(layouts)
         })
     }
+    static loadLocalesFromSource(componentsDir, modulesDir = '') {
+        return new Promise(done => {
+            Object.keys(layouts).forEach(layout => {
+                fs.readdirSync(componentsDir).forEach(component => {
+                    let componentDir = path.join(componentsDir, component)
+                    if(fs.statSync(componentDir).isDirectory()) {
+                        let componentFile = path.join(componentDir, 'locale', `source.js`)
+                        if(fs.existsSync(componentFile))
+                            layouts[layout].i18n.en[component] = require(componentFile).default
+                    }
+                })
+            })
+            done(layouts)
+        })
+    }
 }
 
 export default Template
