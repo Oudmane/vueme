@@ -132,7 +132,10 @@ class Template {
         return new Promise(done => {
             Object.keys(layouts).forEach(layout => {
                 languages.forEach(
-                    language => layouts[layout].i18n[language] = {}
+                    language => layouts[layout].i18n[language] = {
+                        component: {},
+                        module: {}
+                    }
                 )
                 fs.readdirSync(componentsDir).forEach(component => {
                     let componentDir = path.join(componentsDir, component)
@@ -140,9 +143,19 @@ class Template {
                         languages.forEach(language => {
                             let languageFile = path.join(componentDir, 'locale', `${language}.json`)
                             if(fs.existsSync(languageFile))
-                                layouts[layout].i18n[language][component] = require(languageFile)
+                                layouts[layout].i18n[language].component[component] = require(languageFile)
                         })
                 })
+                if(modulesDir)
+                    fs.readdirSync(modulesDir).forEach(module => {
+                        let moduleDir = path.join(modulesDir, module)
+                        if(fs.statSync(moduleDir).isDirectory())
+                            languages.forEach(language => {
+                                let languageFile = path.join(moduleDir, 'locale', `${language}.json`)
+                                if(fs.existsSync(languageFile))
+                                    layouts[layout].i18n[language].module[module] = require(languageFile)
+                            })
+                    })
             })
             done(layouts)
         })
@@ -150,15 +163,27 @@ class Template {
     static loadLocalesFromSource(componentsDir, modulesDir = '', language = 'en') {
         return new Promise(done => {
             Object.keys(layouts).forEach(layout => {
-                layouts[layout].i18n[language] = {}
+                layouts[layout].i18n[language] = {
+                    component: {},
+                    module: {}
+                }
                 fs.readdirSync(componentsDir).forEach(component => {
                     let componentDir = path.join(componentsDir, component)
                     if(fs.statSync(componentDir).isDirectory()) {
                         let componentFile = path.join(componentDir, 'locale', `source.js`)
                         if(fs.existsSync(componentFile))
-                            layouts[layout].i18n[language][component] = require(componentFile).default
+                            layouts[layout].i18n[language].component[component] = require(componentFile).default
                     }
                 })
+                if(modulesDir)
+                    fs.readdirSync(modulesDir).forEach(module => {
+                        let moduleDir = path.join(modulesDir, module)
+                        if(fs.statSync(moduleDir).isDirectory()) {
+                            let moduleFile = path.join(moduleDir, 'locale', `source.js`)
+                            if(fs.existsSync(moduleFile))
+                                layouts[layout].i18n[language].module[module] = require(moduleFile).default
+                        }
+                    })
             })
             done(layouts)
         })
